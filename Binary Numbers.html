@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>AUTHOR NAME - BLOG TITLE</title>
+    <meta name="description" content="AUTHOR BIO" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+
+    <meta name="generator" content="Ghost ?" />
+<link rel="alternate" type="application/rss+xml" title="BLOG TITLE" href="/rss/index.xml">
+<link rel="canonical" href="http://localhost:5000//Binary Numbers.html" />
+</head>
+<body class="author-template author-foo post-template nav-closed">
+
+    
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="http://localhost:5000"><img src="http://lorempixel.com/45/45/abstract/" alt="BLOG TITLE" /></a>
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post">
+
+        <header class="post-header">
+            <h1 class="post-title">Hexadecimal</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2015-08-22">22 August 2015</time> 
+            </section>
+        </header>
+
+        <section class="post-content">
+            <p>Binary Numbers</p>
+<p>Let&#39;s face it, doesn&#39;t it irritate you that computer systems use binary numbers?  Really?  Why not use the decimal system like everyone else?</p>
+<p>Computers are nothing but a huge collection of on-off switches.  (OK, that is a bit of a simplification, but stay with me.)  It is the binary number system that gives those switches such power.  Binary is a base 2 number system.  It has 2 digits, <code>0</code> and <code>1</code> representing the decimal numbers from 0 to 1.  Binary numbers can model the physical state of transistor switches that are either on or off, so long as we agree that the &quot;on&quot; state of the transistor means either <code>1</code> or <code>0</code> and that the &quot;off&quot; state means the opposite.  Therefore, the binary number system really does make a lot of sense when it comes to computers.</p>
+<p>Admit it, you can send a lot of messages with a simple on-off device, such as a flashlight, <em>if you and the recipient of the messages agree on the meaning of the flashes of light</em>.  A flash of light may mean that &quot;the British are coming&quot;, and the absence of a light otherwise.  In binary, this can be represented as a <code>1</code> (light on) or <code>0</code> (light off).  More complicated schemes can be devised even with a single &quot;switch.&quot;  Even more efficient message passing can  be generated with banks or groups of switches.  The meaning of the messages is limited only by your imagination.  A bank of 10 switches may represent the numbers from one to ten (or zero to nine).  Or those 10 switches might represent 10 &quot;English language messages&quot; such as &quot;stop&quot;,&quot;go&quot;, &quot;proceed with caution&quot;, &quot;yield to pedestrians,&quot; etc.</p>
+<p>All you really need to know is that these switches can be either on or off.  But, if you want a deeper understanding of how the transistor switches in a computer work, visit <a href="http://bbrown.kennesaw.edu/web_lectures/transistors/">this website</a> which uses animations to clarify what is happening in the electronic circuits.  I highly recommend it.</p>
+<p>The binary number system is just like the decimal system.  It describes numbers by using the position of the digit to represent <em>powers</em> of the base.  So, for example,</p>
+<p><code>96201</code> in decimal means</p>
+<pre class="hljs"><code> <span class="hljs-number">9</span>x10^<span class="hljs-number">4</span>  +  <span class="hljs-number">6</span>x10^<span class="hljs-number">3</span>  +  <span class="hljs-number">2</span>x10^<span class="hljs-number">2</span>   +   <span class="hljs-number">0x10</span>^<span class="hljs-number">1</span>    +    <span class="hljs-number">1</span></code></pre><p>In other words, the &#39;1&#39; (the <em>least significant digit</em>) represents the 1&#39;s place, the &#39;0&#39; represents the 10&#39;s place, the &#39;2&#39; represents the 100&#39;s place, the 6 represents the 1000&#39;s place and the 9 (the <em>most significant digit</em>) represents the 10,000&#39;s place.</p>
+<p>Likewise,</p>
+<p><code>10101</code> in binary means</p>
+<pre class="hljs"><code><span class="hljs-number">1</span>x2^<span class="hljs-number">4</span>  +  <span class="hljs-number">0x2</span>^<span class="hljs-number">3</span>  +  <span class="hljs-number">1</span>x2^<span class="hljs-number">2</span>  +  <span class="hljs-number">0x2</span>^<span class="hljs-number">1</span>  +  <span class="hljs-number">1</span></code></pre><p>In other words, the number is <code>16</code> (i.e., 1x2^4) + <code>0</code> (i.e., 0x2^3) + <code>4</code> (i.e., 1x2^2) + <code>0</code> (i.e., 0x2^1) + <code>1</code> or decimal 21.</p>
+<p>Binary numbers are often grouped in 4&#39;s, for reasons that we will get to shortly.  But consider now the case mentioned above where we observed that 10 switches could represent 10 numbers:</p>
+<p><code>00 0000 0000</code>  </p>
+<p>These 10 binary digits can actually represent 1024 different numbers (or messages) because each position, moving from right to left, represents an increasing power of 2.  Indeed, we can express all of the digits from 0 to 9 using only 4 binary digits (and have room left over).</p>
+<pre class="hljs"><code>Binary      Decimal      Hexadecimal
+<span class="hljs-number">0000</span>    -&gt;    <span class="hljs-number">0</span>      -&gt;       <span class="hljs-number">0</span>
+<span class="hljs-number">0001</span>    -&gt;    <span class="hljs-number">1</span>      -&gt;       <span class="hljs-number">1</span>
+<span class="hljs-number">0010</span>    -&gt;    <span class="hljs-number">2</span>      -&gt;       <span class="hljs-number">2</span>
+<span class="hljs-number">0011</span>    -&gt;    <span class="hljs-number">3</span>      -&gt;       <span class="hljs-number">3</span>
+<span class="hljs-number">0100</span>    -&gt;    <span class="hljs-number">4</span>      -&gt;       <span class="hljs-number">4</span>
+<span class="hljs-number">0101</span>    -&gt;    <span class="hljs-number">5</span>      -&gt;       <span class="hljs-number">5</span>
+<span class="hljs-number">0110</span>    -&gt;    <span class="hljs-number">6</span>      -&gt;       <span class="hljs-number">6</span>
+<span class="hljs-number">0111</span>    -&gt;    <span class="hljs-number">7</span>      -&gt;       <span class="hljs-number">7</span>
+<span class="hljs-number">1000</span>    -&gt;    <span class="hljs-number">8</span>      -&gt;       <span class="hljs-number">8</span>
+<span class="hljs-number">1001</span>    -&gt;    <span class="hljs-number">9</span>      -&gt;       <span class="hljs-number">9</span>
+<span class="hljs-number">1010</span>    -&gt;    <span class="hljs-number">10</span>     -&gt;       A
+<span class="hljs-number">1011</span>    -&gt;    <span class="hljs-number">11</span>     -&gt;       B
+<span class="hljs-number">1100</span>    -&gt;    <span class="hljs-number">12</span>     -&gt;       C
+<span class="hljs-number">1101</span>    -&gt;    <span class="hljs-number">13</span>     -&gt;       D
+<span class="hljs-number">1110</span>    -&gt;    <span class="hljs-number">14</span>     -&gt;       E
+<span class="hljs-number">1111</span>    -&gt;    <span class="hljs-number">15</span>     -&gt;       F</code></pre><p>From the table above, it is clear that we can express the numbers from 0 to 15 with only four transistors (4 binary digits).  We can express 256 numbers or symbols with only 8 transistors (8 binary digits).  For example, with a mere 8 transistors, we can represent all of the decimal digits from 0 to 9, and all of the upper and lower case English alphabet, plus assorted punctuation marks, control characters, and other useful symbols.  All that we must do is use 8 transistors <strong><em>and</em></strong> agree on what those numbers mean.  Indeed, one of the early agreements of this type was called <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a>, the American Standard Code for Information Interchange.  Furthermore, so long as we agree on a <a href="https://en.wikipedia.org/wiki/Communications_protocol" title="a set of rules for sending and receiving messages"><em>protocol</em></a> for sending <em>sequences</em> of symbols, we can express <em>every word</em> in the English language and communicate <em>every sentence</em> in English that has ever been written, <em>or will ever be written</em>, with only 8 transistors.  Impressed?  You should be.</p>
+<h6 id="hexadecimal">Hexadecimal</h6>
+<p>Ok, you are convinced that the use of binary was actually a good idea.  But what about these hexadecimal numbers?  What gives with them?</p>
+<p>Hexadecimal is a base 16 number system.  It has 16 digits, representing the decimal numbers from 0 to 15.  We can use the decimal symbols to do double duty to represent the hexadecimal values from 0 to 9, but we run out of decimal symbols at number 9, so mathematicians had to come up with a few more hexadecimal symbols to represent the decimal numbers 10 - 15.  They could have adopted various &quot;squiggles&quot; but, instead, they rather unimaginatively came up with the &quot;symbols&quot; A, B, C, D, and E to represent those remaining hexadecimal digits greater than 9.  So, the hexadecimal digits range from 0-9 and A-E.</p>
+<p>It turns out to be convenient to express binary numbers in hexadecimal.  Computers operate on groups of 8 bits referred to as <strong>bytes</strong>.  As noted above, it is often convenient to split those groups of 8 into two groups of 4.  Each group of 4 bits is referred to as a <em>nibble</em> or <em>nybble</em>.  A nibble, that is 4 bits, can represent the numbers from decimal 0 to 15.  If you were paying attention earlier, you will have noticed that this is <em>perfectly suited for hexadecimal</em> !</p>
+<p>Now, the fact of the matter is that it can be difficult to speak or write about binary numbers.  Consider these, for example:</p>
+<p><code>01100110</code>, <code>11100011</code>, <code>01010010</code>, <code>11111000</code> </p>
+<p>If these numbers are broken up into nibbles and expressed in hexadecimal notation, they are much easier to speak and write about.  </p>
+<p><code>01100110</code> becomes <code>0110 0110</code> which becomes <code>66</code>;</p>
+<p><code>11100011</code> becomes <code>1110 0011</code> which becomes <code>E3</code>;</p>
+<p><code>01010010</code> becomes <code>0101 0010</code> which becomes <code>52</code>;</p>
+<p><code>11111000</code> becomes <code>1111 1000</code> which becomes <code>F8</code>.</p>
+<p>The value of using hexadecimal notation becomes even more apparent when we begin to talk about 16, 32, 64 and 128 bit numbers.  A string of hexadecimal characters is much easier to speak and write about than a string of binary numbers.  For example, it would be much easier to talk about the two 16-bit numbers <code>0110 0110 1110 1100</code> and <code>0101 0010 1111 1000</code> as hexadecimal <code>66E3</code> and <code>52F8</code>.[^1]</p>
+<p>So there you have it.   Computer engineers were <strong>not</strong> just trying to make life difficult for you.  There really was a reason to use binary and hexadecimal numbers!</p>
+<p><a href="/home">Home Page</a></p>
+<p>[^1]: The order of these hexadecimal numbers could actually be reversed depending upon the particular computer architecture.  In other words, the two 16-bit numbers might be expressed as <strong>E366</strong> and <strong>F852</strong>, instead of 66E3 and 52F8 respectively, depending upon whether the computer architecture used the <em>&quot;little endian&quot;</em> notation or <em>&quot;big endian&quot;</em> notation.  <em>&quot;Endianness&quot;</em> is beyond the scope of these articles, but more information can be found <a href="http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/Data/endian.html">here</a> and <a href="http://betterexplained.com/articles/understanding-big-and-little-endian-byte-order/">here</a>.</p>
+
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="/author/foo/" style="background-image: url(http://lorempixel.com/155/155/people/)"><span class="hidden">AUTHOR NAME's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="/author/foo/">AUTHOR NAME</a></h4>
+
+                    <p>AUTHOR BIO</p>
+                <div class="author-meta">
+                    <span class="author-location icon-location"> </span>
+                    <span class="author-link icon-link"><a href="http://localhost:5000/author/foo">http://localhost:5000/author/foo</a></span>
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Hexadecimal&amp;url=http://localhost:5000//Binary Numbers.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:5000//Binary Numbers.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://localhost:5000//Binary Numbers.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+    </article>
+</main>
+
+<aside class="read-next">
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="http://localhost:5000">BLOG TITLE</a> &copy; 2015</section>
+            <section class="poweredby">Proudly published with <a href="https://ghost.org">Ghost</a></section>
+        </footer>
+
+    </div>
+
+    <script src="/assets/js/jquery.min.js"></script>
+
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+</body>
+</html>

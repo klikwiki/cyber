@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[BLOG TITLE]]></title><description><![CDATA[BLOG DESCRIPTION]]></description><link>http://localhost:5000/</link><generator>Ghost</generator><lastBuildDate>Sat, 22 Aug 2015 15:33:43 GMT</lastBuildDate><atom:link href="http://localhost:5000/rss/index.xml" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[IPv4 - Dotted Decimal Notation]]></title><description><![CDATA[<p>IP Address</p>
+<h5 id="ipv4-dotted-decimal-notation">IPv4 - Dotted Decimal Notation</h5>
+<p>Computer-to-computer communication (i.e., networking) requires two very basic things:</p>
+<ul>
+<li>each computer must communicate using the same &quot;language&quot; (otherwise known as a <em>protocol</em>) and</li>
+<li>each computer must have an address</li>
+</ul>
+<p>By far the dominant language or protocol is TCP/IP.  TCP/IP is actually comprised of two separate protocols, TCP (&quot;Transmission Control Protocol&quot;) and IP (&quot;Internet Protocol&quot;), but they are so intimately intertwined that they are commonly spoken of as TCP/IP.</p>
+<p>Just like houses and buildings have numerical addresses (e.g., 123 Downing Street), the IP protocol requires that each computer have a numerical address.  The address is expressed as a <a href="/binary-numbers" title="a discussion of binary numbers"><strong>32 bit number</strong></a>.  See also this <a href="https://en.wikipedia.org/wiki/Binary_number">wikipedia</a> article.  For example, one computer may have the address of say <code>11000000101010000000000000000001</code> and another computer may have the address <code>11000000101010000000000000100000</code>.  Since these are hard to remember and talk about, one could try to remember the decimal equivalent of these numbers, namely, 3,232,235,521 and 3,232,235,552.  But that&#39;s not much better.  Because of this difficulty, the &quot;dotted decimal&quot; notation was devised.  The binary number is broken into 4 chunks (8 bits each) separated by a dot and each 8 bit chunk is expressed as a decimal number.  Thus, </p>
+<p><code>11000000101010000000000000000001</code></p>
+<p>becomes </p>
+<p><code>11000000.10101000.00000000.00000001</code> </p>
+<p>and that number becomes </p>
+<p><code>192.168.0.1</code> </p>
+<p>which is <strong>much</strong> easier to read and talk about!  And, by the way, that dotted decimal number can be reconverted to decimal if you choose:</p>
+<p><strong>192</strong> x 256^3 + <strong>168</strong> x 256^2 + <strong>0</strong> x 256 + <strong>1</strong> = 3,232,235,521</p>
+<p>Because each decimal number is based on 8 bits, the largest decimal number that can appear in dotted decimal notation is 255 (2^8 = 256; so the range of addresses is 0 to 255).  It is simply impossible to have an address such as 192.<strong>302</strong>.0.1.  </p>
+<h5 id="ip-address-classes-and-reserved-addresses">IP Address Classes and Reserved Addresses</h5>
+<p>Until about 1993, internet addresses were divided into five different <a href="https://en.wikipedia.org/wiki/Classful_network &quot;more information on &quot;classful&quot; addressing">classes</a> (denominated Class A - E) intended for different uses and sizes of network.  Since that time an addressing scheme <em>without classes</em> has been used, appropriately named <em>Classless</em> Inter-Domain Routing or CIDR.</p>
+<h6 id="private-addresses">Private Addresses</h6>
+<p>Parts of the address space have been reserved for private networks.  Some of these reserved addresses are</p>
+<ul>
+<li>10.0.0.0 - 10.255.255.255 (16,777,216 addresses available)</li>
+<li>172.16.0.0 - 172.31.255.255 (1,048,576 addresses available)</li>
+<li>192.168.0.0 - 192.168.255.255 (65,536 addresses available)</li>
+<li>127.0.0.0 - 127.255.255.255 (loopback address)</li>
+<li>169.254.1.0 - 169.254.254.255 (link-local autoconfiguration when DHCP is not available)</li>
+</ul>
+<p>These addresses are <em>non-routable</em> meaning that internet routers will not route packets with a destination address in any of these ranges.  These addresses are used strictly within private networks.</p>
+<p>The <em>base</em> address, wherein the host address consists of all zeros, is the <em>network address</em>, meaning it is the address of the entire network, not the address of an individual host computer on that network.  Similarly, the <em>high</em> address, wherein the host address consists of all ones, is the <em>broadcast address</em> meaning that it is the address that is used when a computer needs to send a message to <em>all</em> computers on the network.  For example, in the Class C 192.168.0.0 network, 192.168.0.0 is the network address and 192.168.0.255 is the broadcast address.  Individual hosts on that network will have addresses within the range of 1 - 254.</p>
+<h6 id="subnetting">Subnetting</h6>
+<p>As more and more computers &quot;talk&quot; on the same network, the signals from each interfere more and more with the signals of the other computers on the network.  This interference, or collision, of one signal with another can slow network performance to a crawl.</p>
+<p>But, the number of signal &quot;collisions&quot; that occur can be reduced by <a href="https://en.wikipedia.org/wiki/Subnetwork" title="a detailed discussion of subnetting">subnetting</a> or network segmentation.  Suppose, for example, we had 50 computers that we wanted to be able to communicate with each other, 25 in the accounting department, 15 in the sales department, and 10 in the human resources department.  All 50 could easily be assigned an address within the 192.168.0.0 network, which can support 254 hosts.  However, the &quot;noise&quot; on the network could be reduced considerably if each department was placed on its own network.  So, for example, the accounting department could be placed in the 192.168.0.0 network; the sales department placed in the 192.168.1.0 network; and the human resources department placed in the 192.168.2.0 network, with <em>bridges</em> or <em>switches</em> used to route traffic from one network to another as needed.</p>
+<p>The same subnetting or segmentation could be accomplished with a CIDR scheme.  For example, the accounting department could be placed on the 192.168.0.0/27 network with host addresses ranging from 192.168.0.1 to 192.168.0.30.  The &quot;/27&quot; indicates that the 27 most significant bits of the address define the network and the remaining 5 bits designate the individual hosts within the network.  Five bits can represent 32 unique addresses (2^5 = 32), but the first is reserved as the network address and the last is reserved as the broadcast address.  That leaves 30 addresses available for the 25 hosts in the accounting department.  Thus, in this example, 192.168.0.0 is the network address, 192.168.0.31 is the broadcast address, and every address in between is available for use as a host address.  The net mask is 255.255.255.224.  Similarly, the sales department could be placed on the 192.168.0.32/27 network with host addresses ranging from 192.168.0.33 to 192.168.0.62.  Finally, the human resources department could be placed on the 192.168.0.64/28 network with host addresses ranging from 192.168.0.65 to 192.168.0.78 (using a net mask of 255.255.255.240).</p>
+<p>A CIDR subnet can easily be calculated using Wolfram Alpha.  Try it here using address <a href="http://www.wolframalpha.com/input/?i=192.168.0.56%2F27">192.168.0.56/27</a>.  It tells you that 192.168.0.56 is a host address on the 192.168.0.32 network; that 30 host addresses are available in the range of 192.168.0.33 to 192.168.0.62; that the broadcast address is 192.168.0.63; and that the net mask is 255.255.255.224.</p>
+<h5 id="ipv6-the-new-addressing-scheme">IPv6 - the new addressing scheme</h5>
+<p>Compared to IPv4, the new IPv6 (&quot;IP version 6&quot;) addresses are hideously ugly.  But, the IPv4 addressing scheme will <em>only</em> accomodate 4,294,967,296 unique addresses.  That seemed like a sufficiently large number to last quite a long time when the scheme was developed, but it has proven to be too small an address space.  The problem has been mitigated somewhat by the introduction of CIDR and also by the extensive use of <em>NAT</em> (Network Address Translation) in which many computers on a local area network (LAN) can appear to the internet to be located at a single <em>external</em> (i.e., internet facing) address.  But a new scheme is needed and the IPv6 addressing scheme has been developed to solve the problem of insufficient unique addresses.</p>
+<p>IPv6 uses 128 bit addresses and therefore permits 3.4 x 10^38 unique addresses.  This is roughly equal to half of the estimated number of atoms in the observable universe.  That should last us for a while.</p>
+<p>Rather than &quot;dotted decimal&quot; notation, the IPv6 addresses use what I call &quot;colon hex&quot; notation.  The number is expressed in 8 groups of four <a href="https://en.wikipedia.org/wiki/Hexadecimal" title="a detailed discussion of hexadecimal numbers">hexadecimal numbers</a>, separated by colons.  The following is an example of a properly formatted IPv6 address:</p>
+<p><code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code></p>
+<p>Several methods can be used to simplify the address.  Leading zeros may be omitted.  Thus the address above could be simplified to</p>
+<p><code>2001:0db8:85a3:0:0:8a2e:0370:7334</code></p>
+<p>Also, <em>two or more</em> successive groups of zeros can be replaced with empty space between colons:</p>
+<p><code>2001:0db8:85a3::8a2e:0370:7334</code></p>
+<p>Because the address is comprised of 8 groups of numbers and there are only 6 groups in the above number, one can conclude that there are two groups of 0&#39;s represented by the double colon.  A single group of zeros is never replaced with a double colon.  The double colon may only be used once in an address.  To allow otherwise would introduce irresolvable ambiguity.</p>
+<p>The scheme anticipates that IPv6 addresses will generally be assigned automatically using <a href="https://en.wikipedia.org/wiki/DHCPv6">DHCPv6</a> based upon the devices&#39; <a href="https://en.wikipedia.org/wiki/MAC_address" title="a discussion of &#39;media access control&#39; addresses">MAC address</a>.</p>
+<p>During the transition phase from IPv4 to IPv6, IPv4 addresses can be mapped to IPv6 addresses on <em>some</em> systems by using the IPv4 address as the last 32 bits of the 128 bit IPv6 address <em>and</em> representing those 32 bits in dotted decimal notation.  To accomplish this, IPv6 recognizes a special &quot;transition class&quot; address consisting of an 80 bit prefix of zeros, followed by 16 bits set to 1.  The remaining 32 bits are written in dotted decimal notation.  Thus, the IPv4 address <code>192.168.0.32</code> mapped to IPv6 would be represented as <code>::ffff:192.168.0.32</code>.</p>
+<p>More information on the subject can be found <a href="https://en.wikipedia.org/wiki/Private_network">here</a> and <a href="https://en.wikipedia.org/wiki/IPv6">here</a>.</p>
+<p><a href="/home">Home Page</a></p>
+]]></description><link>//IP Address.html</link><guid isPermaLink="true">//IP Address.html</guid><dc:creator><![CDATA[AUTHOR NAME]]></dc:creator><pubDate>Sat, 22 Aug 2015 15:21:11 GMT</pubDate></item><item><title><![CDATA[Hexadecimal]]></title><description><![CDATA[<p>Binary Numbers</p>
+<p>Let&#39;s face it, doesn&#39;t it irritate you that computer systems use binary numbers?  Really?  Why not use the decimal system like everyone else?</p>
+<p>Computers are nothing but a huge collection of on-off switches.  (OK, that is a bit of a simplification, but stay with me.)  It is the binary number system that gives those switches such power.  Binary is a base 2 number system.  It has 2 digits, <code>0</code> and <code>1</code> representing the decimal numbers from 0 to 1.  Binary numbers can model the physical state of transistor switches that are either on or off, so long as we agree that the &quot;on&quot; state of the transistor means either <code>1</code> or <code>0</code> and that the &quot;off&quot; state means the opposite.  Therefore, the binary number system really does make a lot of sense when it comes to computers.</p>
+<p>Admit it, you can send a lot of messages with a simple on-off device, such as a flashlight, <em>if you and the recipient of the messages agree on the meaning of the flashes of light</em>.  A flash of light may mean that &quot;the British are coming&quot;, and the absence of a light otherwise.  In binary, this can be represented as a <code>1</code> (light on) or <code>0</code> (light off).  More complicated schemes can be devised even with a single &quot;switch.&quot;  Even more efficient message passing can  be generated with banks or groups of switches.  The meaning of the messages is limited only by your imagination.  A bank of 10 switches may represent the numbers from one to ten (or zero to nine).  Or those 10 switches might represent 10 &quot;English language messages&quot; such as &quot;stop&quot;,&quot;go&quot;, &quot;proceed with caution&quot;, &quot;yield to pedestrians,&quot; etc.</p>
+<p>All you really need to know is that these switches can be either on or off.  But, if you want a deeper understanding of how the transistor switches in a computer work, visit <a href="http://bbrown.kennesaw.edu/web_lectures/transistors/">this website</a> which uses animations to clarify what is happening in the electronic circuits.  I highly recommend it.</p>
+<p>The binary number system is just like the decimal system.  It describes numbers by using the position of the digit to represent <em>powers</em> of the base.  So, for example,</p>
+<p><code>96201</code> in decimal means</p>
+<pre class="hljs"><code> <span class="hljs-number">9</span>x10^<span class="hljs-number">4</span>  +  <span class="hljs-number">6</span>x10^<span class="hljs-number">3</span>  +  <span class="hljs-number">2</span>x10^<span class="hljs-number">2</span>   +   <span class="hljs-number">0x10</span>^<span class="hljs-number">1</span>    +    <span class="hljs-number">1</span></code></pre><p>In other words, the &#39;1&#39; (the <em>least significant digit</em>) represents the 1&#39;s place, the &#39;0&#39; represents the 10&#39;s place, the &#39;2&#39; represents the 100&#39;s place, the 6 represents the 1000&#39;s place and the 9 (the <em>most significant digit</em>) represents the 10,000&#39;s place.</p>
+<p>Likewise,</p>
+<p><code>10101</code> in binary means</p>
+<pre class="hljs"><code><span class="hljs-number">1</span>x2^<span class="hljs-number">4</span>  +  <span class="hljs-number">0x2</span>^<span class="hljs-number">3</span>  +  <span class="hljs-number">1</span>x2^<span class="hljs-number">2</span>  +  <span class="hljs-number">0x2</span>^<span class="hljs-number">1</span>  +  <span class="hljs-number">1</span></code></pre><p>In other words, the number is <code>16</code> (i.e., 1x2^4) + <code>0</code> (i.e., 0x2^3) + <code>4</code> (i.e., 1x2^2) + <code>0</code> (i.e., 0x2^1) + <code>1</code> or decimal 21.</p>
+<p>Binary numbers are often grouped in 4&#39;s, for reasons that we will get to shortly.  But consider now the case mentioned above where we observed that 10 switches could represent 10 numbers:</p>
+<p><code>00 0000 0000</code>  </p>
+<p>These 10 binary digits can actually represent 1024 different numbers (or messages) because each position, moving from right to left, represents an increasing power of 2.  Indeed, we can express all of the digits from 0 to 9 using only 4 binary digits (and have room left over).</p>
+<pre class="hljs"><code>Binary      Decimal      Hexadecimal
+<span class="hljs-number">0000</span>    -&gt;    <span class="hljs-number">0</span>      -&gt;       <span class="hljs-number">0</span>
+<span class="hljs-number">0001</span>    -&gt;    <span class="hljs-number">1</span>      -&gt;       <span class="hljs-number">1</span>
+<span class="hljs-number">0010</span>    -&gt;    <span class="hljs-number">2</span>      -&gt;       <span class="hljs-number">2</span>
+<span class="hljs-number">0011</span>    -&gt;    <span class="hljs-number">3</span>      -&gt;       <span class="hljs-number">3</span>
+<span class="hljs-number">0100</span>    -&gt;    <span class="hljs-number">4</span>      -&gt;       <span class="hljs-number">4</span>
+<span class="hljs-number">0101</span>    -&gt;    <span class="hljs-number">5</span>      -&gt;       <span class="hljs-number">5</span>
+<span class="hljs-number">0110</span>    -&gt;    <span class="hljs-number">6</span>      -&gt;       <span class="hljs-number">6</span>
+<span class="hljs-number">0111</span>    -&gt;    <span class="hljs-number">7</span>      -&gt;       <span class="hljs-number">7</span>
+<span class="hljs-number">1000</span>    -&gt;    <span class="hljs-number">8</span>      -&gt;       <span class="hljs-number">8</span>
+<span class="hljs-number">1001</span>    -&gt;    <span class="hljs-number">9</span>      -&gt;       <span class="hljs-number">9</span>
+<span class="hljs-number">1010</span>    -&gt;    <span class="hljs-number">10</span>     -&gt;       A
+<span class="hljs-number">1011</span>    -&gt;    <span class="hljs-number">11</span>     -&gt;       B
+<span class="hljs-number">1100</span>    -&gt;    <span class="hljs-number">12</span>     -&gt;       C
+<span class="hljs-number">1101</span>    -&gt;    <span class="hljs-number">13</span>     -&gt;       D
+<span class="hljs-number">1110</span>    -&gt;    <span class="hljs-number">14</span>     -&gt;       E
+<span class="hljs-number">1111</span>    -&gt;    <span class="hljs-number">15</span>     -&gt;       F</code></pre><p>From the table above, it is clear that we can express the numbers from 0 to 15 with only four transistors (4 binary digits).  We can express 256 numbers or symbols with only 8 transistors (8 binary digits).  For example, with a mere 8 transistors, we can represent all of the decimal digits from 0 to 9, and all of the upper and lower case English alphabet, plus assorted punctuation marks, control characters, and other useful symbols.  All that we must do is use 8 transistors <strong><em>and</em></strong> agree on what those numbers mean.  Indeed, one of the early agreements of this type was called <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a>, the American Standard Code for Information Interchange.  Furthermore, so long as we agree on a <a href="https://en.wikipedia.org/wiki/Communications_protocol" title="a set of rules for sending and receiving messages"><em>protocol</em></a> for sending <em>sequences</em> of symbols, we can express <em>every word</em> in the English language and communicate <em>every sentence</em> in English that has ever been written, <em>or will ever be written</em>, with only 8 transistors.  Impressed?  You should be.</p>
+<h6 id="hexadecimal">Hexadecimal</h6>
+<p>Ok, you are convinced that the use of binary was actually a good idea.  But what about these hexadecimal numbers?  What gives with them?</p>
+<p>Hexadecimal is a base 16 number system.  It has 16 digits, representing the decimal numbers from 0 to 15.  We can use the decimal symbols to do double duty to represent the hexadecimal values from 0 to 9, but we run out of decimal symbols at number 9, so mathematicians had to come up with a few more hexadecimal symbols to represent the decimal numbers 10 - 15.  They could have adopted various &quot;squiggles&quot; but, instead, they rather unimaginatively came up with the &quot;symbols&quot; A, B, C, D, and E to represent those remaining hexadecimal digits greater than 9.  So, the hexadecimal digits range from 0-9 and A-E.</p>
+<p>It turns out to be convenient to express binary numbers in hexadecimal.  Computers operate on groups of 8 bits referred to as <strong>bytes</strong>.  As noted above, it is often convenient to split those groups of 8 into two groups of 4.  Each group of 4 bits is referred to as a <em>nibble</em> or <em>nybble</em>.  A nibble, that is 4 bits, can represent the numbers from decimal 0 to 15.  If you were paying attention earlier, you will have noticed that this is <em>perfectly suited for hexadecimal</em> !</p>
+<p>Now, the fact of the matter is that it can be difficult to speak or write about binary numbers.  Consider these, for example:</p>
+<p><code>01100110</code>, <code>11100011</code>, <code>01010010</code>, <code>11111000</code> </p>
+<p>If these numbers are broken up into nibbles and expressed in hexadecimal notation, they are much easier to speak and write about.  </p>
+<p><code>01100110</code> becomes <code>0110 0110</code> which becomes <code>66</code>;</p>
+<p><code>11100011</code> becomes <code>1110 0011</code> which becomes <code>E3</code>;</p>
+<p><code>01010010</code> becomes <code>0101 0010</code> which becomes <code>52</code>;</p>
+<p><code>11111000</code> becomes <code>1111 1000</code> which becomes <code>F8</code>.</p>
+<p>The value of using hexadecimal notation becomes even more apparent when we begin to talk about 16, 32, 64 and 128 bit numbers.  A string of hexadecimal characters is much easier to speak and write about than a string of binary numbers.  For example, it would be much easier to talk about the two 16-bit numbers <code>0110 0110 1110 1100</code> and <code>0101 0010 1111 1000</code> as hexadecimal <code>66E3</code> and <code>52F8</code>.[^1]</p>
+<p>So there you have it.   Computer engineers were <strong>not</strong> just trying to make life difficult for you.  There really was a reason to use binary and hexadecimal numbers!</p>
+<p><a href="/home">Home Page</a></p>
+<p>[^1]: The order of these hexadecimal numbers could actually be reversed depending upon the particular computer architecture.  In other words, the two 16-bit numbers might be expressed as <strong>E366</strong> and <strong>F852</strong>, instead of 66E3 and 52F8 respectively, depending upon whether the computer architecture used the <em>&quot;little endian&quot;</em> notation or <em>&quot;big endian&quot;</em> notation.  <em>&quot;Endianness&quot;</em> is beyond the scope of these articles, but more information can be found <a href="http://www.cs.umd.edu/class/sum2003/cmsc311/Notes/Data/endian.html">here</a> and <a href="http://betterexplained.com/articles/understanding-big-and-little-endian-byte-order/">here</a>.</p>
+]]></description><link>//Binary Numbers.html</link><guid isPermaLink="true">//Binary Numbers.html</guid><dc:creator><![CDATA[AUTHOR NAME]]></dc:creator><pubDate>Sat, 22 Aug 2015 15:21:11 GMT</pubDate></item><item><title><![CDATA[GenCyber]]></title><description><![CDATA[<p>GenCyber</p>
+<p>GenCyber or &quot;Generation Cyber&quot; is the cybersecurity educational program sponsored by the National Science Foundation and the National Security Agency.  Expense paid training is offered to teachers and students to increase cybersecurity awareness and to prepare students for jobs in the field of cybersecurity.  In their own words:</p>
+<blockquote>
+<p>Our vision is for the GenCyber program to be part of the solution to the Nation’s shortfall of skilled cybersecurity professionals. Ensuring that enough young people are inspired to direct their talents in this area is critical to the future of our country’s national and economic security as we become even more reliant on cyber-based technology in every aspect of our daily lives.</p>
+</blockquote>
+<p>The job market for persons skilled in cybersecurity is <em>exploding</em>.  This is an opportunity that should not be missed.  If you are a teacher or student interested in computer security, you should do everything in your power to enroll in one of the trainings.  The trainings are <strong>intense</strong> and <strong>free</strong> for attendees.  You will not find a better deal on the planet!  Follow <a href="http://www.gen-cyber.com/" title="GenCyber website">this link</a> for more information on the GenCyber program.</p>
+<p><a href="/home">Home Page</a></p>
+]]></description><link>//GenCyber.html</link><guid isPermaLink="true">//GenCyber.html</guid><dc:creator><![CDATA[AUTHOR NAME]]></dc:creator><pubDate>Sat, 22 Aug 2015 15:21:11 GMT</pubDate></item><item><title><![CDATA["CIA"]]></title><description><![CDATA[<p>General Principles</p>
+<h4 id="-cia-">&quot;CIA&quot;</h4>
+<ul>
+<li>Confidentiality<ul>
+<li>Only authorized users can access data</li>
+<li>Enforce strong password policy</li>
+<li>Encrypt the data</li>
+</ul>
+</li>
+<li>Integrity<ul>
+<li>The data has not been tampered with</li>
+<li>Cryptographic Hash</li>
+<li>Use of digital signatures</li>
+</ul>
+</li>
+<li>Availability<ul>
+<li>The data is available when needed</li>
+<li>Backups available</li>
+<li>Redundant systems</li>
+</ul>
+</li>
+</ul>
+<p><a href="/home">Home Page</a></p>
+]]></description><link>//General Principles.html</link><guid isPermaLink="true">//General Principles.html</guid><dc:creator><![CDATA[AUTHOR NAME]]></dc:creator><pubDate>Sat, 22 Aug 2015 15:21:11 GMT</pubDate></item><item><title><![CDATA[Cybersecurity Training]]></title><description><![CDATA[<p>Index</p>
+<p>We are interested in all things computer but our focus for now is <strong>cybersecurity</strong> including <strong><em><a href="/gencyber">GenCyber</a></em></strong> training and participation in the <strong><em><a href="/cyberpatriot-games" title="Learn more about CyberPatriot">CyberPatriot</a></em></strong> games. </p>
+<h6 id="cybersecurity-training">Cybersecurity Training</h6>
+<ul>
+<li><a href="/general-principles">General Principles</a></li>
+<li><a href="/ip-address">IP Addresses</a></li>
+<li>Networking</li>
+<li>Password Policy</li>
+<li>Performance Monitoring</li>
+<li>Encryption</li>
+<li>Wireless Networking</li>
+<li>Vulnerability Assessments</li>
+<li>Penetration Testing</li>
+</ul>
+]]></description><link>//Home.html</link><guid isPermaLink="true">//Home.html</guid><dc:creator><![CDATA[AUTHOR NAME]]></dc:creator><pubDate>Sat, 22 Aug 2015 15:21:11 GMT</pubDate></item><item><title><![CDATA[CyberPatriot Games]]></title><description><![CDATA[<p>CyberPatriot Games</p>
+<p>Have you heard of the <em>CyberPatriot</em> games?  <a href="https://www.uscyberpatriot.org/" title="CyberPatriot website">CyberPatriot</a> includes a cyber security competition sponsored by the <a href="http://www.afa.org/home" title="AFA website">Air Force Association</a> and <a href="http://www.northropgrumman.com/Pages/default.aspx" title="Northrop Grumman website">Northrop Grumman</a>.  School teams compete to secure vulnerable computer systems and win an expense paid trip to Washington D.C. for the finals competition, national recognition, and potential scholarships!</p>
+<p>Click <a href="/home">here</a> for links to get started with cybersecurity / CyberPatriot Training.</p>
+<p>Check out these YouTube videos on the CyberPatriot program:</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=JgRMOXE5KWU">Action Packed STEM</a></li>
+<li><a href="https://www.youtube.com/watch?v=14d9NjUfcsY">CyberPatriot VI</a></li>
+<li><a href="https://www.youtube.com/watch?v=JgRMOXE5KWU">CyberPatriot VIII</a></li>
+</ul>
+<p><a href="/home">Home Page</a></p>
+]]></description><link>//CyberPatriot Games.html</link><guid isPermaLink="true">//CyberPatriot Games.html</guid><dc:creator><![CDATA[AUTHOR NAME]]></dc:creator><pubDate>Sat, 22 Aug 2015 15:21:11 GMT</pubDate></item><item><title><![CDATA[Miscellaneous notes]]></title><description><![CDATA[<p>Miscellanrous notes</p>
+<p>One-Click installation of Ghost on Heroku
+<a href="https://github.com/cobyism/ghost-on-heroku">https://github.com/cobyism/ghost-on-heroku</a></p>
+<p><strong>Heroku seems to mangle Ghost</strong>.  Don&#39;t use it.</p>
+<p><a href="http://markmiyashita.com/blog/how-to-deploy-a-static-site-using-github-pages/">Simple way</a> to post static html to Github pages.</p>
+<p><code>Buster</code> can be used to export Ghost blog as static html.  See <a href="https://stefanscherer.github.io/setup-ghost-for-github-pages/">here</a>.</p>
+<p>Online markdown code editor with simultaneous view and export to html at Dillinger.io.  <a href="http://dillinger.io/">Here</a></p>
+]]></description><link>//Miscellaneous notes.html</link><guid isPermaLink="true">//Miscellaneous notes.html</guid><dc:creator><![CDATA[AUTHOR NAME]]></dc:creator><pubDate>Sat, 22 Aug 2015 15:21:11 GMT</pubDate></item><item><title><![CDATA[Password Policy]]></title><description><![CDATA[<p>Password Policy</p>
+<p>A good place to start securing your computer network is the enforcement of good password policy.  Passwords should be complex and should be changed periodically.  The guest and dormant accounts should be disabled.  Administrator or &quot;root&quot; level accounts should only be used for administrative tasks.</p>
+<p>Password policy in Linux.
+Password policy in Windows.</p>
+<p><a href="/home">Home Page</a></p>
+]]></description><link>//Password Policy.html</link><guid isPermaLink="true">//Password Policy.html</guid><dc:creator><![CDATA[AUTHOR NAME]]></dc:creator><pubDate>Sat, 22 Aug 2015 15:21:11 GMT</pubDate></item><item><title><![CDATA[Restart node.js for this to work!]]></title><description><![CDATA[<p>I just spent a little bit of time getting this working and wanted to share what I did, which is a small update on what evildonald did in post 5.</p>
+<p>In core/controllers/frontend.js, we make two replacements and an addition.</p>
+<blockquote>
+<p>Note: new file path is core/server/controllers/frontend.js</p>
+</blockquote>
+<p>Replacement 1-
+~Line180 replace</p>
+<pre class="hljs"><code><span class="hljs-keyword">if</span> <span class="hljs-params">(isNaN<span class="hljs-params">(pageParam)</span> || pageParam &lt; <span class="hljs-number">1</span> || <span class="hljs-params">(req.params.page !== <span class="hljs-literal">undef</span>ined &amp;&amp; pageParam === <span class="hljs-number">1</span>)</span>)</span> {</code></pre><p>with</p>
+<pre class="hljs"><code><span class="hljs-keyword">if</span> (pageParam &lt; <span class="hljs-number">1</span>) {</code></pre><hr>
+<p>Replacement 2-
+~Line204 replace</p>
+<pre class="hljs"><code><span class="hljs-setting">view = <span class="hljs-value">(pageParam &gt; <span class="hljs-number">1</span>) ? <span class="hljs-string">&#39;index&#39;</span> : channelOpts.firstPageTemplate;</span></span></code></pre><p>with </p>
+<pre class="hljs"><code><span class="hljs-setting">view = <span class="hljs-value"><span class="hljs-string">&#39;index&#39;</span></span></span></code></pre><hr>
+<p><strong><em>addition</em></strong>
+~line282, after</p>
+<pre class="hljs"><code><span class="hljs-attribute">single</span>: <span class="hljs-string">function (req, res, next) {</span>
+
+<span class="cs"><span class="hljs-keyword">var</span> path = req.path,
+
+<span class="hljs-keyword">params</span>,
+
+usingStaticPermalink = <span class="hljs-keyword">false</span>;</span></code></pre><p>add</p>
+<pre class="hljs"><code><span class="hljs-keyword">if</span>(path == <span class="hljs-string">&quot;/&quot;</span>){
+                     <span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span>/
+path = <span class="hljs-string">&quot;/homepage/&quot;</span>  <span class="hljs-pi">// Note:  I changed to path = &quot;/home/&quot; //</span>
+                     <span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span><span class="hljs-pi">////</span>/
+};</code></pre><hr>
+<p>Then one little swap in core/routes/frontend.js:
+line 69 change:</p>
+<pre class="hljs"><code>router.<span class="hljs-keyword">get</span>(<span class="hljs-string">&#39;/&#39;</span>, frontend.homepage);</code></pre><p>to</p>
+<pre class="hljs"><code>router.<span class="hljs-keyword">get</span>(<span class="hljs-string">&#39;/&#39;</span>, frontend.single);</code></pre><hr>
+<p>and then make sure you create a static content page with url /homepage <strong>(note: I changed name of page to home, not homepage)</strong> and you&#39;re good to go</p>
+<hr>
+<p>I changed &quot;homepage&quot; to &quot;home&quot; because the function frontendControllers (around line 238 seemed to define the home page by the name &quot;home&quot; rather than &quot;homepage&quot;.  I don&#39;t know if this name change was necessary.  I made the change before I realized that node.js was caching the pages and that I needed to restart it.)</p>
+<h5 id="restart-node-js-for-this-to-work-">Restart node.js for this to work!</h5>
+<pre class="hljs"><code><span class="hljs-built_in">npm</span> start</code></pre>]]></description><link>//Readme.html</link><guid isPermaLink="true">//Readme.html</guid><dc:creator><![CDATA[AUTHOR NAME]]></dc:creator><pubDate>Sat, 22 Aug 2015 15:21:11 GMT</pubDate></item><item><title><![CDATA[To Do]]></title><description><![CDATA[<p>To Do</p>
+<p>TCP/IP
+IP Addresses (v4, v6)
+Private IP addresses
+Manual IP configuration
+Multi-Homed Hosts
+Networking virtual machines
+Routers/Bridges/Switches/Hubs
+Computer Performance Monitoring
+Network Monitoring
+Wireshark
+Firewalls
+DHCP
+DNS
+Workgroups and Domains
+Domain Controller
+Wireless Setup
+Wireless Router vs Access Point
+Multi-Node Wireless Networks</p>
+]]></description><link>//To Do.html</link><guid isPermaLink="true">//To Do.html</guid><dc:creator><![CDATA[AUTHOR NAME]]></dc:creator><pubDate>Sat, 22 Aug 2015 15:21:11 GMT</pubDate></item><item><title><![CDATA[Getting Started with Markdown]]></title><description><![CDATA[<p>Welcome to Ghost</p>
+<blockquote>
+<p>(Here is a <a href="http://blog.ghost.org/markdown/">Link</a> to a more comprehensive introduction to Markdown.)</p>
+</blockquote>
+<h2 id="getting-started-with-markdown">Getting Started with Markdown</h2>
+<p>Ghost uses something called Markdown for writing. Essentially, it&#39;s a shorthand way to manage your post formatting as you write!</p>
+<p>Writing in Markdown is really easy. In the left hand panel of Ghost, you simply write as you normally would. Where appropriate, you can use <em>shortcuts</em> to <strong>style</strong> your content. For example, a list:</p>
+<ul>
+<li>Item number one</li>
+<li>Item number two<ul>
+<li>A nested item</li>
+</ul>
+</li>
+<li>A final item</li>
+</ul>
+<p>or with numbers!</p>
+<ol>
+<li>Remember to buy some milk</li>
+<li>Drink the milk</li>
+<li>Tweet that I remembered to buy the milk, and drank it</li>
+</ol>
+<h3 id="links">Links</h3>
+<p>Want to link to a source? No problem. If you paste in a URL, like <a href="http://ghost.org">http://ghost.org</a> - it&#39;ll automatically be linked up. But if you want to customise your anchor text, you can do that too! Here&#39;s a link to <a href="http://ghost.org">the Ghost website</a>. Neat.</p>
+<h3 id="what-about-images-">What about Images?</h3>
+<p>Images work too! Already know the URL of the image you want to include in your article? Simply paste it in like this to make it show up:</p>
+<p><img src="https://ghost.org/images/ghost.png" alt="The Ghost Logo"></p>
+<p>Not sure which image you want to use yet? That&#39;s ok too. Leave yourself a descriptive placeholder and keep writing. Come back later and drag and drop the image in to upload:</p>
+<p>![A bowl of bananas]</p>
+<h3 id="quoting">Quoting</h3>
+<p>Sometimes a link isn&#39;t enough, you want to quote someone on what they&#39;ve said. Perhaps you&#39;ve started using a new blogging platform and feel the sudden urge to share their slogan? A quote might be just the way to do it!</p>
+<blockquote>
+<p>Ghost - Just a blogging platform</p>
+</blockquote>
+<h3 id="working-with-code">Working with Code</h3>
+<p>Got a streak of geek? We&#39;ve got you covered there, too. You can write inline <code>&lt;code&gt;</code> blocks really easily with back ticks. Want to show off something more comprehensive? 4 spaces of indentation gets you there.</p>
+<pre class="hljs"><code>.awesome-<span class="hljs-keyword">thing</span> {
+    display: block;
+    width: 100%;
+}</code></pre><h3 id="ready-for-a-break-">Ready for a Break?</h3>
+<p>Throw 3 or more dashes down on any new line and you&#39;ve got yourself a fancy new divider. Aw yeah.</p>
+<hr>
+<h3 id="advanced-usage">Advanced Usage</h3>
+<p>There&#39;s one fantastic secret about Markdown. If you want, you can write plain old HTML and it&#39;ll still work! Very flexible.</p>
+<input type="text" placeholder="I'm an input field!" />
+
+<p>That should be enough to get you started. Have fun - and let us know what you think :)</p>
+]]></description><link>//Welcome to Ghost.html</link><guid isPermaLink="true">//Welcome to Ghost.html</guid><dc:creator><![CDATA[AUTHOR NAME]]></dc:creator><pubDate>Sat, 22 Aug 2015 15:21:11 GMT</pubDate></item></channel></rss>
